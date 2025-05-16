@@ -195,7 +195,7 @@ func (s *SetterSuite) TestSetLocation() {
 
 func (s *SetterSuite) TestSetLocale() {
 	s.Run("zero carbon", func() {
-		SetLocale("zh-CN")
+		s.Nil(SetLocale("zh-CN").Error)
 		s.Equal("zh-CN", DefaultLocale)
 		s.Equal("zh-CN", NewCarbon().Locale())
 		s.Equal("摩羯座", NewCarbon().Constellation())
@@ -205,7 +205,7 @@ func (s *SetterSuite) TestSetLocale() {
 		s.Equal("星期一", NewCarbon().ToWeekString())
 		s.Equal("周一", NewCarbon().ToShortWeekString())
 
-		SetLocale("en")
+		s.Nil(SetLocale("en").Error)
 		s.Equal("en", DefaultLocale)
 		s.Equal("en", NewCarbon().Locale())
 		s.Equal("Capricorn", NewCarbon().Constellation())
@@ -217,7 +217,7 @@ func (s *SetterSuite) TestSetLocale() {
 	})
 
 	s.Run("valid carbon", func() {
-		SetLocale("zh-CN")
+		s.Nil(SetLocale("zh-CN").Error)
 		c1 := Parse("2020-08-05")
 		s.Equal("zh-CN", DefaultLocale)
 		s.Equal("zh-CN", c1.Locale())
@@ -228,7 +228,7 @@ func (s *SetterSuite) TestSetLocale() {
 		s.Equal("星期三", c1.ToWeekString())
 		s.Equal("周三", c1.ToShortWeekString())
 
-		SetLocale("en")
+		s.Nil(SetLocale("en").Error)
 		c2 := Parse("2020-08-05")
 		s.Equal("en", DefaultLocale)
 		s.Equal("en", c2.Locale())

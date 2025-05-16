@@ -162,11 +162,12 @@ func (c *Carbon) AddYearsNoOverflow(years int) *Carbon {
 	nanosecond := c.Nanosecond()
 	year, month, day, hour, minute, second := c.DateTime()
 	// get the last day of this month after some years
-	lastYear, lastMonth, lastDay := c.create(year+years, month+1, 0, hour, minute, second, nanosecond).Date()
+	lastYear, lastMonth, lastDay := time.Date(year+years, time.Month(month+1), 0, hour, minute, second, nanosecond, c.loc).Date()
 	if day > lastDay {
 		day = lastDay
 	}
-	return c.create(lastYear, lastMonth, day, hour, minute, second, nanosecond)
+	c.time = time.Date(lastYear, lastMonth, day, hour, minute, second, nanosecond, c.loc)
+	return c
 }
 
 // AddYear adds one year.
@@ -259,11 +260,12 @@ func (c *Carbon) AddMonthsNoOverflow(months int) *Carbon {
 	nanosecond := c.Nanosecond()
 	year, month, day, hour, minute, second := c.DateTime()
 	// get the last day of this month after some months
-	lastYear, lastMonth, lastDay := c.create(year, month+months+1, 0, hour, minute, second, nanosecond).Date()
+	lastYear, lastMonth, lastDay := time.Date(year, time.Month(month+months+1), 0, hour, minute, second, nanosecond, c.loc).Date()
 	if day > lastDay {
 		day = lastDay
 	}
-	return c.create(lastYear, lastMonth, day, hour, minute, second, nanosecond)
+	c.time = time.Date(lastYear, lastMonth, day, hour, minute, second, nanosecond, c.loc)
+	return c
 }
 
 // AddMonth adds one month.

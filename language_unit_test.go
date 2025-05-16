@@ -83,6 +83,7 @@ func (s *LanguageSuite) TestLanguage_SetLocale() {
 		lang := NewLanguage()
 
 		lang.SetLocale("en")
+		s.Nil(lang.Error)
 		s.Equal("Leo", Parse("2020-08-05").SetLanguage(lang).Constellation())
 		s.Equal("Summer", Parse("2020-08-05").SetLanguage(lang).Season())
 		s.Equal("4 years before", Parse("2020-08-05").SetLanguage(lang).DiffForHumans(Parse("2024-08-05")))
@@ -92,6 +93,7 @@ func (s *LanguageSuite) TestLanguage_SetLocale() {
 		s.Equal("Wed", Parse("2020-08-05").SetLanguage(lang).ToShortWeekString())
 
 		lang.SetLocale("zh-CN")
+		s.Nil(lang.Error)
 		s.Equal("狮子座", Parse("2020-08-05").SetLanguage(lang).Constellation())
 		s.Equal("夏季", Parse("2020-08-05").SetLanguage(lang).Season())
 		s.Equal("4 年前", Parse("2020-08-05").SetLanguage(lang).DiffForHumans(Parse("2024-08-05")))
@@ -199,12 +201,14 @@ func (s *LanguageSuite) TestLanguage_translate() {
 	s.Run("nil resources", func() {
 		lang := NewLanguage()
 		lang.SetResources(nil)
+		s.Error(lang.Error)
 		s.Empty(lang.translate("month", 1))
 	})
 
 	s.Run("empty resources", func() {
 		lang := NewLanguage()
 		lang.SetResources(map[string]string{})
+		s.Error(lang.Error)
 		s.Empty(lang.translate("month", 1))
 	})
 
@@ -213,12 +217,14 @@ func (s *LanguageSuite) TestLanguage_translate() {
 		lang.SetResources(map[string]string{
 			"xxx": "xxx",
 		})
+		s.Error(lang.Error)
 		s.Empty(lang.translate("month", 1))
 	})
 
 	s.Run("valid resources", func() {
 		lang := NewLanguage()
 		lang.SetLocale("en")
+		s.Nil(lang.Error)
 		s.Equal("1 month", lang.translate("month", 1))
 		s.Equal("-1 month", lang.translate("month", -1))
 	})

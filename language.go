@@ -4,7 +4,6 @@ import (
 	"embed"
 	"encoding/json"
 	"fmt"
-	"path/filepath"
 	"slices"
 	"strconv"
 	"strings"
@@ -74,7 +73,7 @@ func (lang *Language) SetLocale(locale string) *Language {
 	defer lang.rw.Unlock()
 
 	lang.locale = locale
-	fileName := filepath.Join(lang.dir, locale+".json")
+	fileName := fmt.Sprintf("%s/%s.json", lang.dir, locale)
 	var (
 		bs  []byte
 		err error
