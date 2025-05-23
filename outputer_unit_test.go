@@ -1689,7 +1689,7 @@ func (s *OutputerSuite) TestCarbon_Format() {
 		s.Equal("5", Parse("2020-08-05 13:14:15").Format("j"))
 		s.Equal("32", Parse("2020-08-05 13:14:15").Format("W"))
 		s.Equal("August", Parse("2020-08-05 13:14:15").Format("F"))
-		s.Equal("03", Parse("2020-08-05 13:14:15").Format("N"))
+		s.Equal("3", Parse("2020-08-05 13:14:15").Format("N"))
 		s.Equal("1", Parse("2020-08-05 13:14:15").Format("L"))
 		s.Equal("0", Parse("2021-08-05 13:14:15").Format("L"))
 		s.Equal("13", Parse("2020-08-05 13:14:15").Format("G"))

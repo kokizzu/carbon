@@ -99,7 +99,7 @@ func (c *Carbon) StartOfWeek() *Carbon {
 	if dayOfWeek == weekStartsAt {
 		return c.StartOfDay()
 	}
-	return c.SubDays(int(DaysPerWeek+dayOfWeek-weekStartsAt) % DaysPerWeek).StartOfDay()
+	return c.Copy().SubDays(int(DaysPerWeek+dayOfWeek-weekStartsAt) % DaysPerWeek).StartOfDay()
 }
 
 // EndOfWeek returns a Carbon instance for end of the week.
@@ -111,7 +111,7 @@ func (c *Carbon) EndOfWeek() *Carbon {
 	if dayOfWeek == weekEndsAt {
 		return c.EndOfDay()
 	}
-	return c.AddDays(int(DaysPerWeek-dayOfWeek+weekEndsAt) % DaysPerWeek).EndOfDay()
+	return c.Copy().AddDays(int(DaysPerWeek-dayOfWeek+weekEndsAt) % DaysPerWeek).EndOfDay()
 }
 
 // StartOfDay returns a Carbon instance for start of the day.

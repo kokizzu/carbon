@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-// Parse parses a standard time string as a Carbon instance by default layouts.
+// Parse parses a time string as a Carbon instance by default layouts.
 func Parse(value string, timezone ...string) *Carbon {
 	if value == "" {
 		return &Carbon{isEmpty: true}
@@ -105,6 +105,8 @@ func ParseByLayout(value, layout string, timezone ...string) *Carbon {
 }
 
 // ParseByFormat parses a time string as a Carbon instance by a confirmed format.
+//
+// Note: If the letter used conflicts with the format sign, please use the escape character "\" to escape the letter
 func ParseByFormat(value, format string, timezone ...string) *Carbon {
 	if value == "" {
 		return &Carbon{isEmpty: true}
@@ -120,6 +122,8 @@ func ParseByFormat(value, format string, timezone ...string) *Carbon {
 }
 
 // ParseByLayouts parses a time string as a Carbon instance by multiple fuzzy layouts.
+//
+// Note: it doesn't support parsing by timestamp layouts.
 func ParseByLayouts(value string, layouts []string, timezone ...string) *Carbon {
 	if value == "" {
 		return &Carbon{isEmpty: true}
@@ -154,6 +158,8 @@ func ParseByLayouts(value string, layouts []string, timezone ...string) *Carbon 
 }
 
 // ParseByFormats parses a time string as a Carbon instance by multiple fuzzy formats.
+//
+// Note: it doesn't support parsing by timestamp formats.
 func ParseByFormats(value string, formats []string, timezone ...string) *Carbon {
 	if value == "" {
 		return &Carbon{isEmpty: true}
@@ -182,14 +188,14 @@ func ParseByFormats(value string, formats []string, timezone ...string) *Carbon 
 
 // ParseWithLayouts parses a time string as a Carbon instance by multiple fuzzy layouts.
 //
-// Deprecated: it will be removed in the future, use ParseByLayouts instead.
+// Deprecated: it will be removed in the future, use "ParseByLayouts" instead.
 func ParseWithLayouts(value string, layouts []string, timezone ...string) *Carbon {
 	return ParseByLayouts(value, layouts, timezone...)
 }
 
 // ParseWithFormats parses a time string as a Carbon instance by multiple fuzzy formats.
 //
-// Deprecated: it will be removed in the future, use ParseByFormats instead.
+// Deprecated: it will be removed in the future, use "ParseByFormats" instead.
 func ParseWithFormats(value string, formats []string, timezone ...string) *Carbon {
 	return ParseByFormats(value, formats, timezone...)
 }

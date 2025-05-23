@@ -24,7 +24,7 @@ func SetTestNow(c *Carbon) {
 
 // CleanTestNow clears the test Carbon instance for now.
 //
-// Deprecated: it will be removed in the future, use ClearTestNow instead.
+// Deprecated: it will be removed in the future, use "ClearTestNow" instead.
 func CleanTestNow() {
 	ClearTestNow()
 }

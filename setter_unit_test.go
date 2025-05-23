@@ -25,13 +25,13 @@ func (s *SetterSuite) TestSetLayout() {
 		c1 := NewCarbon()
 		s.Equal(DateLayout, DefaultLayout)
 		s.Equal(DateLayout, c1.CurrentLayout())
-		s.Empty(c1.String())
+		s.Equal("0001-01-01", c1.String())
 
 		SetLayout(DateTimeLayout)
 		c2 := NewCarbon()
 		s.Equal(DateTimeLayout, DefaultLayout)
 		s.Equal(DateTimeLayout, c2.CurrentLayout())
-		s.Empty(c2.String())
+		s.Equal("0001-01-01 00:00:00", c2.String())
 	})
 
 	s.Run("valid carbon", func() {
@@ -55,13 +55,13 @@ func (s *SetterSuite) TestSetFormat() {
 		c1 := NewCarbon()
 		s.Equal(DateLayout, DefaultLayout)
 		s.Equal(DateLayout, c1.CurrentLayout())
-		s.Empty(c1.String())
+		s.Equal("0001-01-01", c1.String())
 
 		SetFormat(DateTimeFormat)
 		c2 := NewCarbon()
 		s.Equal(DateTimeLayout, DefaultLayout)
 		s.Equal(DateTimeLayout, c2.CurrentLayout())
-		s.Empty(c2.String())
+		s.Equal("0001-01-01 00:00:00", c2.String())
 	})
 
 	s.Run("valid carbon", func() {

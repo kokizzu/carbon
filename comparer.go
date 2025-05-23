@@ -30,7 +30,7 @@ func (c *Carbon) IsZero() bool {
 	if c.IsNil() || c.IsEmpty() || c.HasError() {
 		return false
 	}
-	return c.time.IsZero()
+	return c.StdTime().IsZero()
 }
 
 // IsEpoch reports whether is a unix epoch time(1970-01-01 00:00:00 +0000 UTC).
@@ -38,7 +38,7 @@ func (c *Carbon) IsEpoch() bool {
 	if c.IsInvalid() {
 		return false
 	}
-	return c.StdTime().Equal(time.Date(EpochYear, 1, 1, 0, 0, 0, 0, time.UTC))
+	return c.Eq(EpochValue())
 }
 
 // IsValid reports whether is a valid time.

@@ -5,28 +5,26 @@ import (
 	"database/sql/driver"
 )
 
-// Scan implements driver.Scanner interface for Carbon struct.
+// Scan implements "driver.Scanner" interface for Carbon struct.
 func (c *Carbon) Scan(src any) error {
 	switch v := src.(type) {
 	case nil:
 		return nil
 	case []byte:
-		*c = *Parse(string(v), DefaultTimezone)
+		*c = *Parse(string(v))
 	case string:
-		*c = *Parse(v, DefaultTimezone)
-	case int64:
-		*c = *CreateFromTimestamp(v, DefaultTimezone)
+		*c = *Parse(v)
 	case StdTime:
-		*c = *CreateFromStdTime(v, DefaultTimezone)
+		*c = *CreateFromStdTime(v)
 	case *StdTime:
-		*c = *CreateFromStdTime(*v, DefaultTimezone)
+		*c = *CreateFromStdTime(*v)
 	default:
 		return ErrFailedScan(v)
 	}
 	return c.Error
 }
 
-// Value implements driver.Valuer interface for Carbon struct.
+// Value implements "driver.Valuer" interface for Carbon struct.
 func (c Carbon) Value() (driver.Value, error) {
 	if c.IsNil() || c.IsZero() || c.IsEmpty() {
 		return nil, nil
@@ -37,7 +35,7 @@ func (c Carbon) Value() (driver.Value, error) {
 	return c.StdTime(), nil
 }
 
-// MarshalJSON implements json.Marshal interface for Carbon struct.
+// MarshalJSON implements "json.Marshaler" interface for Carbon struct.
 func (c Carbon) MarshalJSON() ([]byte, error) {
 	if c.IsNil() || c.IsZero() || c.IsEmpty() {
 		return []byte(`null`), nil
@@ -53,7 +51,7 @@ func (c Carbon) MarshalJSON() ([]byte, error) {
 	return b, nil
 }
 
-// UnmarshalJSON implements json.Unmarshal interface for Carbon struct.
+// UnmarshalJSON implements "json.Unmarshaler" interface for Carbon struct.
 func (c *Carbon) UnmarshalJSON(src []byte) error {
 	v := string(bytes.Trim(src, `"`))
 	if v == "" || v == "null" {
@@ -63,9 +61,9 @@ func (c *Carbon) UnmarshalJSON(src []byte) error {
 	return c.Error
 }
 
-// String implements the interface Stringer for Carbon struct.
+// String implements "Stringer" interface for Carbon struct.
 func (c *Carbon) String() string {
-	if c.IsInvalid() || c.IsZero() {
+	if c.IsInvalid() {
 		return ""
 	}
 	return c.Layout(c.currentLayout)
